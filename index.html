@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>تلوث الغلاف الجوي - ظاهرة خطرة</title>
+
+<!-- لوجو التبويب -->
+<link rel="icon" type="image/png" href="https://www.thegreenwebfoundation.org/wp-content/plugins/wp-green-checker/public/img/gwf-brand-icons/gwf-recycle-green.svg">
+
+  <!-- خط بسيط -->
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --green-1: #0f9d58;
+      --green-2: #26c281;
+      --blue-1: #2aa7e0;
+      --bg: #f4fbf8;
+      --card: #ffffff;
+      --text: #0e2b22;
+      --muted: #6b7b75;
+      --glass: rgba(255,255,255,0.65);
+      --shadow: 0 10px 30px rgba(18,35,29,0.12);
+    }
+
+    [data-theme="dark"]{
+      --bg: #0b1110;
+      --card: #07110f;
+      --text: #e6f6ef;
+      --muted: #9fb6a9;
+      --glass: rgba(255,255,255,0.03);
+      --shadow: 0 8px 30px rgba(0,0,0,0.6);
+    }
+
+    *{ box-sizing: border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: "Rubik", Tahoma, sans-serif;
+      background: linear-gradient(180deg, var(--bg), #eaf8f1 60%);
+      color:var(--text);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.6;
+    }
+
+    /* ---------- NAVBAR / HEADER ---------- */
+    .navbar{
+      position:fixed;
+      top:0;
+      left:0; right:0;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:12px 26px;
+      gap:12px;
+      backdrop-filter: blur(6px);
+      background: linear-gradient(90deg, rgba(255,255,255,0.6), rgba(255,255,255,0.2));
+      box-shadow: var(--shadow);
+      z-index:1200;
+      border-bottom-left-radius:12px;
+      border-bottom-right-radius:12px;
+    }
+    [data-theme="dark"] .navbar{
+      background: linear-gradient(90deg, rgba(8,14,12,0.5), rgba(20,30,27,0.25));
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+    .logo{
+      width:56px; height:56px; border-radius:12px;
+      overflow:hidden;
+      box-shadow: 0 6px 18px rgba(38,194,129,0.14);
+      display:flex; align-items:center; justify-content:center;
+      background: linear-gradient(135deg,var(--green-1),var(--blue-1));
+      color:white; font-weight:700;
+    }
+    .brand h1{
+      margin:0; font-size:18px; line-height:1;
+      letter-spacing:0.2px;
+    }
+    .brand p{ margin:0; font-size:12px; color:var(--muted); }
+
+    .nav-links{
+      display:flex; align-items:center; gap:18px;
+    }
+    .nav-links a{
+      text-decoration:none; color:var(--text); font-weight:600;
+      padding:8px 12px; border-radius:8px;
+    }
+    .nav-links a:hover{ background:var(--glass); }
+
+    /* settings dropdown */
+    .settings{
+      position:relative;
+    }
+    .settings .dropdown{
+      position:absolute;
+      top:46px; right:0;
+      width:220px;
+      background:var(--card);
+      box-shadow: var(--shadow);
+      border-radius:12px;
+      padding:12px;
+      display:none;
+      z-index:1300;
+    }
+    .settings.open .dropdown{ display:block; }
+    .dropdown label{ display:flex; align-items:center; justify-content:space-between; gap:8px; margin:8px 0; font-size:14px; color:var(--text); }
+    .toggle{
+      width:46px; height:26px; background: #ddd; border-radius:30px; position:relative; cursor:pointer;
+    }
+    .toggle .knob{
+      width:20px; height:20px; border-radius:50%;
+      background:white; position:absolute; top:3px; right:3px; transition:.22s;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.12);
+    }
+    .toggle.on{ background:linear-gradient(90deg,var(--green-1),var(--blue-1)); }
+    .toggle.on .knob{ right:23px; }
+
+    /* ---------- HERO ---------- */
+    .hero{
+      margin-top:86px;
+      display:flex;
+      gap:24px;
+      padding:48px 6%;
+      align-items:center;
+      min-height:360px;
+      background-image: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.3)), url('https://www.aljazeera.net/wp-content/uploads/2024/05/shutterstock_296927024-1715509295.jpg?resize=770%2C513&quality=80');
+      background-size:cover;
+      background-position:center;
+      border-radius:18px;
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    [data-theme="dark"] .hero{
+      background-image: linear-gradient(180deg, rgba(8,14,12,0.6), rgba(8,14,12,0.3)), url('https://www.aljazeera.net/wp-content/uploads/2022/06/shutterstock_300803561.jpg?resize=770%2C513&quality=80');
+    }
+    .hero-left{
+      flex:1; padding:36px; color:var(--text);
+      text-align:right;
+    }
+    .hero-left h2{ margin:0; font-size:28px; color:white; text-shadow:0 6px 18px rgba(0,0,0,0.35);}
+    .hero-left p{ margin-top:12px; max-width:720px; color:rgba(255,255,255,0.92); line-height:1.7; }
+
+    .hero-right{
+      width:340px; padding:22px;
+    }
+    .card-stats{
+      background:rgba(255,255,255,0.92);
+      border-radius:12px; padding:16px; box-shadow:0 8px 26px rgba(12,40,32,0.08);
+    }
+    [data-theme="dark"] .card-stats{ background: rgba(255,255,255,0.02); }
+
+    .card-stats h3{ margin:0 0 8px 0; color:var(--text); }
+    .btn-primary{
+      display:inline-block; border:none; cursor:pointer;
+      background: linear-gradient(90deg,var(--green-1),var(--blue-1));
+      color:white; padding:10px 18px; border-radius:10px; font-weight:700;
+      box-shadow: 0 8px 20px rgba(38,194,129,0.12);
+    }
+
+    /* ---------- MAIN CONTENT ---------- */
+    .container{
+      max-width:1100px; margin:28px auto; padding:20px;
+    }
+    section.card-grid{
+      display:grid; grid-template-columns: repeat(auto-fit,minmax(240px,1fr)); gap:18px;
+      margin-bottom:32px;
+    }
+    .card{
+      background:var(--card); border-radius:12px; padding:18px; box-shadow: var(--shadow);
+      min-height:150px;
+    }
+    .card img{ width:100%; height:120px; object-fit:cover; border-radius:8px; display:block; margin-bottom:12px; }
+    .card h4{ margin:0 0 6px 0; }
+    .muted{ color:var(--muted); font-size:14px; }
+
+    .three-cols{
+      display:grid; grid-template-columns: repeat(3,1fr); gap:18px;
+    }
+    @media (max-width:900px){ .three-cols{ grid-template-columns:1fr; } .hero{ flex-direction:column; } .hero-right{ width:100%; } .navbar{ padding:10px 12px; } }
+
+    /* ---------- AUTHORS / FOOTER ---------- */
+    .authors{
+      display:flex; gap:14px; flex-wrap:wrap;
+    }
+    .author{
+      background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.9));
+      padding:12px; border-radius:12px; min-width:220px; box-shadow: var(--shadow);
+    }
+
+    footer{
+      margin-top:36px; padding:24px; text-align:center; color:var(--muted);
+      background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.3));
+      border-radius:12px; max-width:1100px; margin-left:auto; margin-right:auto;
+    }
+
+    /* ---------- MODALS ---------- */
+    .overlay {
+      position:fixed; inset:0; background: rgba(0,0,0,0.62); display:flex; align-items:center; justify-content:center;
+      z-index:2000;
+    }
+    .modal-box{
+      width:85%; max-width:980px; background:var(--card); border-radius:14px; padding:22px 26px; box-shadow: var(--shadow);
+      max-height:86vh; overflow:auto; position:relative;
+    }
+    .modal-box h2{ margin-top:0; }
+    .modal-body{
+      text-align:justify; line-height:1.75; color:var(--muted);
+    }
+    .modal-actions{ display:flex; gap:12px; justify-content:flex-start; margin-top:18px; align-items:center; flex-wrap:wrap; }
+
+    /* drop animation for modal2 */
+    .drop-appear{
+      animation: dropIn .58s cubic-bezier(.2,.9,.3,1) both;
+    }
+    @keyframes dropIn {
+      0%{ transform: translateY(-30px) scale(.98); opacity:0; }
+      60%{ transform: translateY(8px) scale(1.02); opacity:1; }
+      100%{ transform: translateY(0) scale(1); opacity:1; }
+    }
+
+    .checkbox{
+      display:inline-flex; align-items:center; gap:10px; cursor:pointer; user-select:none;
+    }
+
+    .countdown{
+      font-weight:700; padding:10px 14px; border-radius:10px; background: #f3f3f3; color:var(--text);
+    }
+
+    /* small helper */
+    .small{ font-size:13px; color:var(--muted); }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="brand">
+<div class="logo" aria-hidden="true">
+  <img src="https://www.thegreenwebfoundation.org/wp-content/plugins/wp-green-checker/public/img/gwf-brand-icons/gwf-recycle-green.svg" alt="" width="50" height="50">
+</div>
+      <div>
+        <h1 id="siteTitle">التلوث البيئي، ظاهرة خطرة...</h1>
+        <p class="small" id="siteSub">بحث توعوي متضمن للمسألة، الأسباب والحلول المقترحة</p>
+      </div>
+    </div>
+
+    <div class="nav-links">
+      <a href="#home" class="nav-item" data-key="homeLink">الرئيسية</a>
+      <a href="#authors" class="nav-item" data-key="authorsLink">المؤلف</a>
+      <div class="settings" id="settingsToggle">
+        <a class="nav-item" id="settingsBtn"> </a>
+        <div class="dropdown" id="settingsDropdown" role="menu" aria-hidden="true">
+          <label>
+            <span>قيد الصيانة...</span>
+            <select id="langSelect" style="padding:6px 10px; border-radius:8px; border:1px solid #ddd;">
+            </select>
+          </label>
+
+          <label style="margin-top:6px;">
+            <span> </span>
+            <div id="themeToggle" class="toggle" title="تغيير الثيم">
+              <div class="knob"></div>
+            </div>
+          </label>
+
+          <div style="border-top:1px solid rgba(0,0,0,0.04); padding-top:10px; margin-top:10px;">
+            <p class="small" id="settingNote"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero" id="home" role="banner" aria-label="مقدمة">
+    <div class="hero-left">
+      <h2 id="heroTitle">تلوث الغلاف الجوي، طاهرة خطرة تهدد حياتنا...</h2>
+      <p id="heroIntro">
+        التلوث الجوي واحد من أكبر التحديات البيئية في العصر الحديث — يؤثر على صحة الإنسان، التنوع الحيوي، والمناخ.
+        هذا الموقع يقدم دراسة مبسطة ومفصلة عن أسباب التلوث، آثاره، والحلول المتاحة على المستويات الفردية والمؤسساتية.
+        استعرض الأقسام أدناه لتتعرف أكثر على المشكلة وكيف يمكنك المشاركة بالحل.
+      </p>
+
+      <div style="margin-top:18px;">
+<button type="button" class="btn-primary" id="ctaStart">طباحة البحث</button>
+<script>
+  document.getElementById("ctaStart").addEventListener("click", function() {
+    window.open("https://project3ms.github.io/installPDF/", "_blank", "noopener,noreferrer");
+  });
+</script>
+
+        <span style="margin-right:12px; color:var(--muted);">أو تصفح البحث والأقسام أسفله</span>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="card-stats">
+        <h3>لماذا هذا البحث؟</h3>
+        <p class="small">الهدف زيادة الوعي وتقديم حلول عملية يمكن تطبيقها على المستوى الفردي والدولي.</p>
+        <hr style="margin:12px 0;">
+        <p style="margin:0;" class="small"><strong>الموضوع:</strong> تلوث الغلاف الجوي</p>
+        <p style="margin:6px 0 0 0;" class="small"><strong>المؤلفون:</strong>غبغـوب عبد العزيز </p>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="container" id="mainContent" aria-live="polite" style="display:none;">
+
+<!-- المقدمة -->
+<section id="conclusion" style="margin-bottom:28px;">
+      <h2>المقدمة</h2>
+      <div class="card">
+        <p class="muted">    يُعد تلوث الغلاف الجوي من أخطر الظواهر البيئية التي تهدد حياة الإنسان وتوازن النظم الطبيعية على حد سواء. فمع التوسع الصناعي، وزيادة أعداد المركبات، وإزالة الغابات، وتنامي الممارسات الضارة بالبيئة، أصبح الهواء الذي نتنفسه محمّلاً بملوثات خطيرة تؤثر مباشرة على الصحة العامة، التنوع البيولوجي، والمناخ العالمي. هذه الظاهرة المعقدة لا تقتصر انعكاساتها على الجانب البيئي فحسب، بل تمتد لتشمل الجوانب الاقتصادية والاجتماعية، مما يجعلها تحدياً عالمياً يحتاج إلى وعي جماعي وحلول عملية ومن هنا تبرز الإشكالية الرئيسية لهذا البحث: كيف يشكل تلوث الغلاف الجوي خطراً يهدد صحة الإنسان والبيئة والاقتصاد، وما هي السبل الممكنة للتقليل من آثاره السلبية؟
+وللإجابة عن هذه الإشكالية، يجب علينا الإجابة عن مجموعة من التساؤلات الفرعية:
+ما أبرز الأسباب والعوامل المؤدية إلى تلوث الغلاف الجوي؟
+ما هي الانعكاسات الصحية، البيئية والاقتصادية المترتبة عن هذا التلوث؟
+إلى أي مدى يساهم النشاط البشري في تفاقم الظاهرة؟
+ما هي الحلول والبدائل العملية الممكنة لمواجهتها محلياً وعالمياً؟
+وكيف يمكن المواءمة بين التنمية الاقتصادية وحماية البيئة من مخاطر التلوث؟
+</p>
+      </div>
+    </section>
+	
+    <!-- الأسباب -->
+    <section id="causes" style="margin-bottom:28px;">
+      <h2>الأسباب</h2>
+      <div class="card-grid">
+        <article class="card">
+          <img src="https://www.aljazeera.net/wp-content/uploads/2013/09/6129de30-ba14-438e-8168-2f1822c2c5be.jpeg?resize=686%2C513&quality=80" alt="عوادم سيارات">
+          <h4>عوادم المركبات</h4>
+          <p class="muted">عوادم السيارات تُعتبر من أبرز مصادر التلوث البيئي في المدن الحديثة، حيث تنتج عن احتراق الوقود في المحركات. هذه العوادم تحتوي على غازات ضارة مثل أول أكسيد الكربون، ثاني أكسيد الكربون، وأكاسيد النيتروجين، بالإضافة إلى الجسيمات الدقيقة. انبعاث هذه الملوثات يؤدي إلى تدهور جودة الهواء وزيادة المخاطر الصحية على الإنسان. كما أن أول أكسيد الكربون غاز سام يؤثر على قدرة الدم في نقل الأكسجين، ما يشكل خطراً على الجهاز التنفسي. أما ثاني أكسيد الكربون فيعد من الغازات المسببة للاحتباس الحراري وتغير المناخ. وتساهم أكاسيد النيتروجين في تكوين الأمطار الحمضية، التي تضر بالتربة والمياه والنباتات. كما أن الجسيمات الدقيقة المنبعثة قد تتسبب في أمراض القلب والرئة. في المدن الكبرى، عوادم السيارات مسؤولة عن نسبة كبيرة من تلوث الهواء اليومي. من أجل مواجهة هذه المشكلة، تم تطوير تقنيات مثل المحولات الحفازة للحد من الانبعاثات. كما يُشجع استخدام السيارات الكهربائية والهجينة لتقليل الاعتماد على الوقود الأحفوري.
+
+(المصدر: ويكيبيديا – تلوث الهواء من السيارات، وكالة حماية البيئة الأمريكية EPA)
+</p>
+        </article>
+		
+        <article class="card">
+          <img src="https://npasyria.com/wp-content/uploads/2021/03/%D8%A7%D9%86%D8%A8%D8%B9%D8%A7%D8%AB-%D8%BA%D8%A7%D8%B2-%D8%AB%D8%A7%D9%86%D9%8A-%D8%A3%D9%88%D9%83%D8%B3%D9%8A%D8%AF-%D8%A7%D9%84%D9%83%D8%B1%D8%A8%D9%88%D9%86-%D9%85%D9%86-%D8%A3%D8%AD%D8%AF-%D8%A7%D9%84%D9%85%D8%B5%D8%A7%D9%86%D8%B9-%D8%A7%D9%86%D8%AA%D8%B1%D9%86%D9%8A%D8%AA.jpg" alt="مداخن المصانع">
+          <h4>انبعاثات المصانع</h4>
+          <p class="muted">انبعاثات المصانع تعد من أخطر مصادر التلوث البيئي، إذ تنتج عن عمليات حرق الوقود الأحفوري وتشغيل الآلات الصناعية. هذه الانبعاثات تشمل غازات مثل ثاني أكسيد الكبريت، ثاني أكسيد الكربون، وأكاسيد النيتروجين، إضافة إلى الدخان والجسيمات الدقيقة. تأثير هذه الملوثات لا يقتصر على الهواء فقط، بل يمتد إلى المياه والتربة من خلال الترسيب. ثاني أكسيد الكبريت على سبيل المثال يساهم في تكوين الأمطار الحمضية التي تضر بالزراعة والحياة المائية. أما ثاني أكسيد الكربون فهو من أبرز الغازات المسببة للاحتباس الحراري، ما يؤدي إلى ارتفاع درجات الحرارة العالمية. الغازات السامة الأخرى يمكن أن تسبب مشاكل صحية خطيرة مثل أمراض الجهاز التنفسي والسرطان. في المناطق الصناعية، تُلاحظ زيادة واضحة في نسب التلوث والأمراض المرتبطة به بين السكان. كما أن المصانع غير الملتزمة بالمعايير البيئية تعتبر أكثر خطورة بسبب غياب أنظمة التنقية. الحكومات وضعت قوانين للحد من هذه الانبعاثات عبر الرقابة الصارمة واستخدام تقنيات صديقة للبيئة. من بين الحلول المقترحة أيضاً الاعتماد على مصادر الطاقة المتجددة وتقليل الاعتماد على الوقود الأحفوري.
+
+(المصدر: ويكيبيديا – التلوث الصناعي، وكالة حماية البيئة الأمريكية EPA)
+</p>
+        </article>
+
+        <article class="card">
+          <img src="https://ichef.bbci.co.uk/ace/ws/800/cpsprodpb/6792/production/_92841562_deforestationgetty.jpg.webp" alt="قطع غابات">
+          <h4>إزالة الغابات</h4>
+          <p class="muted">إزالة الغابات تمثل أحد أبرز أشكال التدهور البيئي الناتج عن النشاط البشري، حيث تُقطع الأشجار بشكل واسع لاستخدام الأراضي في الزراعة أو العمران. هذه العملية تؤدي إلى فقدان التنوع البيولوجي بسبب تدمير المواطن الطبيعية للحيوانات والنباتات. كما تسهم في زيادة تركيز ثاني أكسيد الكربون في الغلاف الجوي لأن الأشجار تمتصه خلال عملية البناء الضوئي. إزالة الغابات ترتبط أيضاً بظاهرة الاحتباس الحراري وتسريع تغير المناخ. من جانب آخر، يؤدي اختفاء الغطاء النباتي إلى تعرية التربة وزيادة معدلات الانجراف، مما يؤثر سلباً على الإنتاج الزراعي. كما تتأثر دورة المياه الطبيعية حيث يقل معدل التبخر وتضعف قدرة الأرض على تخزين المياه. في بعض المناطق المدارية، مثل الأمازون، تُعتبر إزالة الغابات تهديداً مباشراً للتوازن البيئي العالمي. هذا النشاط يضر كذلك بالمجتمعات المحلية التي تعتمد على الغابات في حياتها اليومية. لمواجهة المشكلة، تسعى منظمات دولية لتشجيع إعادة التشجير واعتماد سياسات تنمية مستدامة. وتعد حماية الغابات جزءاً أساسياً من الجهود العالمية للحفاظ على البيئة ومواجهة التغير المناخي.
+
+(المصدر: ويكيبيديا – إزالة الغابات، منظمة الأغذية والزراعة FAO)
+</p>
+        </article>
+
+        <article class="card">
+          <img src="https://alfallahalyoum.news/wp-content/uploads/2016/10/1-80-300x198.jpg" alt="حرق مخلفات">
+          <h4>حرق النفايات والمخلفات الزراعية</h4>
+          <p class="muted">حرق النفايات والزراعة يُعتبر من الممارسات الشائعة التي تساهم بشكل مباشر في تلوث البيئة. عند حرق النفايات، تنطلق غازات سامة مثل أول أكسيد الكربون والدايوكسينات التي تلوث الهواء وتؤثر سلباً على صحة الإنسان. كما أن حرق المخلفات الزراعية يؤدي إلى انبعاث كميات كبيرة من الجسيمات الدقيقة، والتي يمكن أن تسبب أمراضاً تنفسية مزمنة. هذه العملية ترفع أيضاً من تركيز غازات الدفيئة في الغلاف الجوي، مما يزيد من ظاهرة الاحتباس الحراري. في المناطق الريفية، يلجأ المزارعون إلى حرق بقايا المحاصيل لتجهيز الأرض للموسم الجديد، وهو ما يضر بجودة التربة على المدى الطويل. يؤدي هذا السلوك إلى فقدان العناصر الغذائية الحيوية في التربة وزيادة معدلات التصحر. كما أن الدخان الناتج من الحرق يتسبب في تقليل وضوح الرؤية وقد يسبب حوادث مرورية. بعض المواد المحترقة قد تحتوي على مركبات سامة تؤثر على جودة المياه الجوفية والسطحية عند ترسيبها. بدائل الحرق تشمل إعادة التدوير، التسميد العضوي، واستخدام تقنيات الزراعة المستدامة. اعتماد هذه الحلول يساعد على تقليل الأضرار البيئية والصحية المرتبطة بهذه الممارسات.
+
+(المصدر: ويكيبيديا – تلوث الهواء، منظمة الصحة العالمية WHO)
+</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- الآثار -->
+    <section id="effects" style="margin-bottom:28px;">
+      <h2>الآثار</h2>
+      <div class="three-cols">
+        <div class="card">
+          <h4>أثر صحي</h4>
+          <p class="muted">يؤدي تلوث الغلاف الجوي إلى أضرار صحية خطيرة أبرزها أمراض الجهاز التنفسي مثل الربو وضيق التنفس والتهابات الرئة، كما يزيد من احتمالية الإصابة بأمراض القلب والشرايين، ويؤثر سلبًا على مناعة الجسم خاصة لدى الأطفال وكبار السن. (المصدر: منظمة الصحة العالمية WHO)</p>
+        </div>
+        <div class="card">
+          <h4>أثر بيئي</h4>
+          <p class="muted">يؤدي تلوث الغلاف الجوي إلى أضرار صحية خطيرة أبرزها أمراض الجهاز التنفسي مثل الربو وضيق التنفس والتهابات الرئة، كما يخلّف تلوث الغلاف الجوي آثارًا بيئية واسعة، منها تراجع التنوع البيولوجي بسبب تلوث المواطن الطبيعية، وتكوّن الأمطار الحمضية التي تؤدي إلى تحمض التربة والمياه، إضافة إلى ذوبان الجليد وارتفاع مستوى البحار نتيجة الاحتباس الحراري. هذه التغيرات تهدد استقرار النظم البيئية وتؤثر بشكل مباشر على الكائنات الحية والنباتات. (المصدر: برنامج الأمم المتحدة للبيئة UNEP)</p>
+        </div>
+        <div class="card">
+          <h4>أثر اقتصادي</h4>
+          <p class="muted">يُسبب تلوث الغلاف الجوي آثارًا اقتصادية كبيرة، حيث يؤدي إلى ارتفاع تكاليف الرعاية الصحية نتيجة زيادة الأمراض المرتبطة بالتلوث، ويؤثر على الإنتاجية بسبب غياب العمال والطلاب عن أعمالهم ودراستهم. كما ينعكس سلبًا على الزراعة من خلال تراجع المحاصيل وتضرر التربة. على سبيل المثال، تشير تقارير اقتصادية إلى أن تلوث الهواء يكلف بعض الدول مليارات الدولارات سنويًا نتيجة الخسائر في الإنتاج الزراعي والإنفاق الصحي.
+(المصدر: البنك الدولي – تكلفة تلوث الهواء على الاقتصاد العالمي)
+</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- الحلول -->
+    <section id="solutions" style="margin-bottom:28px;">
+      <h2>الحلول المقترحة</h2>
+      <div class="card-grid">
+        <div class="card">
+          <img src="https://web-cdn.markets.com/large_renewable_1200_format_jpg_6c484243ce.jpg" alt="طاقة متجددة">
+          <h4>الطاقات المتجددة</h4>
+          <p class="muted">الطاقات المتجددة هي مصادر للطاقة تُستمد من الطبيعة وتتميز بقدرتها على التجدد المستمر وعدم النفاد، مثل الطاقة الشمسية، طاقة الرياح، والطاقة الكهرومائية. هذه المصادر تُعتبر بديلاً نظيفاً عن الوقود الأحفوري لأنها لا تطلق ملوثات أو غازات دفيئة ضارة بالبيئة. الاعتماد على الطاقات المتجددة يقلل من انبعاثات ثاني أكسيد الكربون، مما يساهم في الحد من ظاهرة الاحتباس الحراري. كما أن استخدامها يساهم في تحسين جودة الهواء وتقليل الأمراض المرتبطة بالتلوث. في مجال الزراعة والصناعة، توفر هذه الطاقات حلاً مستداماً لتشغيل المعدات والآلات دون الإضرار بالبيئة. الطاقة الشمسية مثلاً أصبحت خياراً شائعاً في المناطق المشمسة، بينما تستخدم طاقة الرياح في المناطق ذات التيارات الهوائية القوية. أما الطاقة الكهرومائية فتعتمد على تدفق المياه لتوليد الكهرباء، وهي من أقدم أشكال الطاقة المتجددة. إلى جانب ذلك، يُنظر إلى الطاقات المتجددة كوسيلة لتعزيز الأمن الطاقوي وتقليل الاعتماد على استيراد الوقود. الحكومات حول العالم تدعم مشاريع الاستثمار في هذا المجال من خلال تشريعات وحوافز مالية. مستقبلاً، يُتوقع أن تشكل الطاقات المتجددة المحور الأساسي لسياسات الطاقة العالمية.
+
+(المصدر: ويكيبيديا – طاقة متجددة، الوكالة الدولية للطاقة المتجددة IRENA)
+</p>
+        </div>
+        <div class="card">
+          <img src="https://www.maroc24.com/wp-content/uploads/2025/05/%D8%AA%D8%B4%D8%AC%D9%8A%D8%B1-%D9%85%D8%B3%D8%A7%D8%AD%D8%A9.jpg" alt="تشجير">
+          <h4>التشجير وإعادة التأهيل</h4>
+          <p class="muted">التشجير وإعادة التأهيل البيئي يُعدان من أهم الحلول لمواجهة التلوث والتغير المناخي. فالتشجير يساهم في زيادة الغطاء النباتي الذي يمتص ثاني أكسيد الكربون من الجو ويطلق الأكسجين الضروري للحياة. كما تساعد الأشجار في تحسين جودة الهواء عبر احتجاز الغبار والملوثات. إعادة التأهيل تعني استصلاح الأراضي المتدهورة وإعادتها إلى حالتها الطبيعية من خلال زراعة النباتات المحلية. هذه العملية تحافظ على التنوع البيولوجي وتعيد للحيوانات موائلها التي فقدتها بسبب النشاط البشري. إضافةً إلى ذلك، تساهم الغابات المزروعة حديثاً في الحد من انجراف التربة وحماية مصادر المياه. في المناطق الحضرية، يحقق التشجير فوائد مباشرة مثل تلطيف المناخ المحلي وتوفير الظل وتقليل الضوضاء. كما أن له دوراً اجتماعياً واقتصادياً من خلال تحسين المناظر الطبيعية وزيادة المساحات الخضراء. الحكومات والمنظمات البيئية تطلق برامج تشجير جماعية لتعويض خسائر الغابات الناتجة عن القطع أو الحرائق. هذه المبادرات تدعم التنمية المستدامة وتشجع الأفراد على المشاركة في حماية البيئة. في المستقبل، يُتوقع أن تكون مشاريع التشجير وإعادة التأهيل جزءاً أساسياً من خطط مكافحة التلوث العالمي.
+
+(المصدر: ويكيبيديا – التشجير، برنامج الأمم المتحدة للبيئة UNEP)
+</p>
+        </div>
+        <div class="card">
+          <img src="https://global.unitednations.entermediadb.net/assets/mediadb/services/module/asset/downloads/preset/assets/2016/10/25940/image1170x530cropped.jpg" alt="نقل مستدام">
+          <h4>النقل المستدام</h4>
+          <p class="muted">النقل المستدام هو نظام يعتمد على وسائل تقلل من الأضرار البيئية وتدعم التنمية المستدامة. يهدف هذا النوع من النقل إلى تقليل انبعاث الغازات الدفيئة الناتجة عن استخدام الوقود الأحفوري. من أبرز أنواعه استخدام وسائل النقل العام الصديقة للبيئة مثل الحافلات الكهربائية والقطارات. كما يشجع النقل المستدام على المشي وركوب الدراجات في المسافات القصيرة لتقليل التلوث الهوائي. تطوير البنية التحتية مثل ممرات الدراجات ومسارات المشاة جزء مهم من هذا النظام. السيارات الكهربائية والهجينة تدخل أيضاً ضمن الحلول لتقليل الاعتماد على الوقود التقليدي. إضافة إلى ذلك، يُشجع على مشاركة السيارات لتقليل عدد المركبات في الطرق المزدحمة. النقل المستدام له فوائد صحية حيث يقلل من الأمراض التنفسية المرتبطة بالتلوث. كما أنه يساهم في تقليل الضوضاء وتحسين جودة الحياة داخل المدن. الحكومات تدعم هذا التوجه عبر سياسات بيئية وحوافز مالية لتبني حلول النقل الخضراء.
+
+(المصدر: ويكيبيديا – النقل المستدام، الاتحاد الأوروبي للنقل والبيئة T&E)
+</p>
+        </div>
+        <div class="card">
+          <img src="https://lawyersafran.com/wp-content/uploads/2024/10/%D8%A7%D8%B3%D8%AA%D8%BA%D9%84%D8%A7%D9%84-%D8%A7%D9%84%D8%B3%D9%84%D8%B7%D8%A9.webp" alt="قوانين">
+          <h4>سن القوانين الصارمة والمتابعة</h4>
+          <p class="muted"> تُعتبر من الأدوات الأساسية للحد من التلوث البيئي وضمان حماية الموارد الطبيعية. فالتشريعات البيئية تضع حدوداً واضحة لانبعاثات الغازات والنفايات الصناعية. كما تُلزم المصانع والشركات باستخدام تقنيات صديقة للبيئة أو مواجهة عقوبات مالية وقانونية. هذه القوانين تشمل أيضاً تنظيم إدارة النفايات ومنع الحرق العشوائي أو التخلص غير الآمن منها. المتابعة الدورية من قبل الهيئات المختصة تضمن التزام الجهات المختلفة بهذه التشريعات. في حال غياب الرقابة، تتضاعف مستويات التلوث وتزداد الأضرار الصحية والبيئية. تطبيق القوانين الصارمة يساهم كذلك في تشجيع الاستثمار في الطاقة النظيفة والحلول المستدامة. بعض الدول وضعت أنظمة مراقبة إلكترونية لمتابعة جودة الهواء والمياه بشكل مستمر. كما تُفرض غرامات أو إيقاف النشاطات في حال المخالفة المتكررة. إن وجود قوانين قوية مع متابعة فعالة يخلق توازناً بين التنمية الاقتصادية وحماية البيئة. هذا النهج يعد ركيزة أساسية لتحقيق التنمية المستدامة على المدى الطويل.
+(المصدر: ويكيبيديا – التشريع البيئي، برنامج الأمم المتحدة للبيئة UNEP)
+</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- خاتمة -->
+    <section id="conclusion" style="margin-bottom:28px;">
+      <h2>الخاتمة</h2>
+      <div class="card">
+        <p class="muted">تلوث الغلاف الجوي مشكلة مركبة تتطلب تعاون الأفراد، الحكومات، والشركات. الإجراءات الفردية مثل تقليل الاستهلاك، الاستخدام الذكي للطاقة، والمشاركة في التشجير تحسب؛ وعلى المستوى العام يجب اتباع سياسات واضحة واستثمار في التقنيات النظيفة. هذا البحث يدعو للتوعية والعمل الآن قبل أن تصبح التكاليف أكبر بكثير.</p>
+      </div>
+    </section>
+
+
+    <!-- شكر خاص -->
+    <section id="effects" style="margin-bottom:28px;">
+      <h2>شكر خاص</h2>
+      <div class="three-cols">
+        <div class="card">
+          <h4>بدون اسم - أستاذة العلوم الفيزيائية</h4>
+          <p class="muted">فقد كلفتنا بهذا البحث إيمانًا منها بأهمية الموضوع في حياتنا اليومية، وسعيًا لغرس الوعي البيئي في نفوسنا.</p>
+        </div>
+        <div class="card">
+          <h4>المساهمين والنشطاء</h4>
+          <p class="muted">نتوجه بالشكر نحو المساهمين والنشطاء البيئيين، ونتقدم بالشكر على وجه الخصوص نحو عاملي النظافة، فهم يكرسون جهودهم وأوقاتهم من أجل بيئة أفضل. 
+</p>
+        </div>
+        <div class="card">
+          <h4>الوكالات والمنظمات البيئية</h4>
+          <p class="muted">نشكر الوكالات والمنظمات البيئية الوطنية والعالمية لجهودهم المتواصلة في مراقبة التلوث، نشر الوعي، وتقديم الحلول العملية لحماية الغلاف الجوي والحفاظ على توازن الطبيعة.</p>
+        </div>
+      </div>
+    </section>	
+	
+    <!-- المؤلفون -->
+    <section id="authors" style="margin-bottom:28px;">
+      <h2>المؤلفون</h2>
+      <div class="authors">
+        <div class="author">
+          <h4>غبغوب عبدالعزيز - الكاتب</h4>
+          <p class="small">تنسيق المحتوى، جمع المصادر، وإخراج التصميم والمراقبة التقنية للصفحة.</p>
+        </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      © 2025
+    </footer>
+  </main>
+
+  <!-- ================= MODAL 1: WELCOME (15-20 سطر) ================= -->
+  <div class="overlay" id="welcomeOverlay" aria-modal="true" role="dialog">
+    <div class="modal-box" style="max-width:900px;">
+      <h2>مرحباً بك في بحث تلوث الغلاف الجوي</h2>
+      <div class="modal-body" id="welcomeText">
+        <!-- نص ترحيبي مطوّل (حوالي 15-20 سطر) -->
+        <p>
+          يسعدنا أن نرحب بك في هذا البحث التوعوي المتكامل حول تلوث الغلاف الجوي.
+          إن موضوع التلوث الجوي يمثل واحداً من أخطر التحديات التي تواجه البيئة وصحة الإنسان في القرن الحادي والعشرين.
+          من خلال هذه الصفحة نقدم عرضًا مبسطًا ومُعمّقاً في آنٍ واحد، يستهدف القارئ العام والمهتمين بالبيئة على حد سواء.
+        </p>
+        <p>
+          نعرض هنا لمحة عن الأسباب الرئيسية للتلوث، الآثار المباشرة وغير المباشرة على الصحة والاقتصاد، بالإضافة إلى الحلول العملية والتوصيات التي يمكن أن تُطبق على المستوى الفردي والمؤسسي.
+          تم تجميع المعلومات من مصادر علمية وتقارير ميدانية، وقدمها فريق من المهتمين بالتوعية البيئية.
+        </p>
+        <p>
+          نأمل أن يمنحك هذا البحث أدوات لفهم أعمق للمشكلة، وأن يشجعك على اتخاذ خطوات صغيرة في حياتك اليومية تساهم في تحسين جودة الهواء من حولك.
+          لا نغالي إذا قلنا أن التغيير يبدأ من خطوات بسيطة: تقليل الإستهلاك، النقل المستدام، والمشاركة في المبادرات الخضراء.
+        </p>
+        <p>
+          إذا كنت طالبًا، معلمًا، ناشطًا بيئيًا، أو مجرد قارئ يريد التعلم — فالمحتوى هنا مُعد بعناية ليستفيد منه الجميع.
+          في نهاية كل قسم ستجد نقاط عملية ومراجع قصيرة إن رغبت بالبحث الأعمق.
+        </p>
+        <p>
+          قبل المتابعة، نطلب منك قراءة الشروط والأحكام البسيطة: المعلومات هنا لأغراض التوعية والتعليم فقط، والمصادر مذكورة أدناه، ونشجع على التحقق من المصادر الأولية للمعلومات العلمية. بالموازاة، نلتزم بالسلوك الأخلاقي في اقتباس المحتوى واحترام حقوق الملكية الفكرية.
+        </p>
+      </div>
+
+      <div class="modal-actions" style="margin-top:18px;">
+        <label class="checkbox">
+          <input type="checkbox" id="agreeTerms" />
+          <span>لقد قرأت الشروط والأحكام</span>
+        </label>
+
+        <button id="continueBtn" style="margin-right:8px;" disabled>مُواصلة</button>
+
+        <button id="skipBtn" style="background:#e6e6e6;color:var(--text);"> </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MODAL 2: ABOUT (drop animation + 5s countdown) ================= -->
+  <div class="overlay" id="aboutOverlay" style="display:none;" aria-modal="true" role="dialog">
+    <div class="modal-box drop-appear" style="max-width:820px;">
+      <h2>عن المشروع</h2>
+      <div class="modal-body" id="aboutText">
+        <p>
+          هذا المشروع عبارة عن بحث توعوي رقمي يهدف لشرح مشكلة تلوث الغلاف الجوي بشكل مبسط وقابل للتطبيق.
+          أُعدّ البحث من قِبل فريق توعية بيئية يجمع بين المصادر العلمية والنهج العملي، بحيث يقدم معلومات حديثة قابلة للفهم من قِبل جمهور واسع.
+        </p>
+        <p>
+          تضمن المحتوى مراجعات حول أسباب التلوث، تحليلاً لآثاره الصحية والبيئية، إضافة إلى مجموعة اقتراحات وحلول يمكن تنفيذها محلياً.
+          كما يركّز المشروع على تقديم حلول منخفضة التكلفة تساعد المجتمعات المحلية على التقليل من الانبعاثات وتحسين جودة الهواء.
+        </p>
+        <p>
+          يُعرَض المشروع هنا بصيغة رقمية تفاعلية مع صور وشروحات قصيرة أنشأت باشتهاد من قبلنا نحن بناءا على بيانات وتقارير رسمية نرجو أن ينال إعجاب حضرتكم.
+        </p>
+      </div>
+
+      <div class="modal-actions">
+        <div class="countdown small" id="countdown">5</div>
+        <button id="closeAbout" disabled style="background:#d9d9d9;color:var(--muted);">إغلاق</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // عناصر المودالات والأزرار
+    const welcomeOverlay = document.getElementById('welcomeOverlay');
+    const aboutOverlay = document.getElementById('aboutOverlay');
+    const agreeTerms = document.getElementById('agreeTerms');
+    const continueBtn = document.getElementById('continueBtn');
+    const skipBtn = document.getElementById('skipBtn');
+    const countdownEl = document.getElementById('countdown');
+    const closeAbout = document.getElementById('closeAbout');
+    const mainContent = document.getElementById('mainContent');
+    const ctaStart = document.getElementById('ctaStart');
+
+    // الإعدادات
+    const settingsToggle = document.getElementById('settingsToggle');
+    const settingsBtn = document.getElementById('settingsBtn');
+    const settingsDropdown = document.getElementById('settingsDropdown');
+    const langSelect = document.getElementById('langSelect');
+    const themeToggle = document.getElementById('themeToggle');
+    const themeKnob = themeToggle.querySelector('.knob');
+
+    // افتح اغلاق dropdown
+    settingsBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      settingsToggle.classList.toggle('open');
+    });
+    document.addEventListener('click', () => settingsToggle.classList.remove('open'));
+
+    // تفعيل زر المتابعة عند الموافقة
+    agreeTerms.addEventListener('change', () => {
+      continueBtn.disabled = !agreeTerms.checked;
+      continueBtn.style.opacity = agreeTerms.checked ? '1' : '0.6';
+    });
+
+    // عند الضغط مواصلة: اغلاق المودال الاول وإظهار المودال الثاني (Drop animation)
+    continueBtn.addEventListener('click', () => {
+      welcomeOverlay.style.display = 'none';
+      aboutOverlay.style.display = 'flex';
+      startCountdown(7);
+    });
+
+    // زر الخروج (تخطي) يغلق الموقع ويعرض المحتوى كذلك (اختياري)
+    skipBtn.addEventListener('click', () => {
+      // نغلق المودال الأول ونعرض المحتوى مباشرة
+      welcomeOverlay.style.display = 'none';
+      // يمكنك اختيار إظهار المودال الثاني أو تجاوزها — هنا نعرض المودال الثاني أيضاً لتوحيد التجربة
+      aboutOverlay.style.display = 'flex';
+      startCountdown(7);
+    });
+
+    // بدء العد التنازلي ويُفعل زر الإغلاق بعد انتهاء المدة
+    function startCountdown(seconds){
+      countdownEl.textContent = seconds;
+      closeAbout.disabled = true;
+      closeAbout.style.opacity = 0.7;
+      const interval = setInterval(() => {
+        seconds--;
+        countdownEl.textContent = seconds;
+        if(seconds <= 0){
+          clearInterval(interval);
+          countdownEl.textContent = '';
+          closeAbout.disabled = false;
+          closeAbout.style.background = 'linear-gradient(90deg,var(--green-1),var(--blue-1))';
+          closeAbout.style.color = 'white';
+        }
+      }, 1000);
+    }
+
+    // اغلاق المودال الثاني -> عرض المحتوى الرئيسي
+    closeAbout.addEventListener('click', () => {
+      aboutOverlay.style.display = 'none';
+      mainContent.style.display = 'block';
+      // انزلق تلقائياً الى بداية المحتوى
+      window.scrollTo({ top: document.getElementById('home').offsetTop - 80, behavior: 'smooth' });
+    });
+
+    // زر CTA في الهيرو يفتح نفس سلسلة المودالات لو أردت
+    ctaStart.addEventListener('click', () => {
+      // لو المودال الأول ما زال ظاهر — لا نفعل شيء؛ إن كان مخفياً نعرضه مجدداً مع افتراض أن المستخدم يريد إعادة القراءة
+      if(getComputedStyle(welcomeOverlay).display === 'none' && getComputedStyle(aboutOverlay).display === 'none'){
+        // نعرض مودال الترحيب أولاً
+        welcomeOverlay.style.display = 'flex';
+        agreeTerms.checked = false;
+        continueBtn.disabled = true;
+      } else {
+        // إذا كانت المودالات تعمل، نوجه الانتباه إليها
+      }
+    });
+
+    // ---------- اللغات ----------
+    const translations = {
+      en: {
+        siteTitle: "Environmental Pollution — A Dangerous Phenomenon...",
+        siteSub: "Comprehensive awareness study",
+        heroTitle: "Environmental Pollution: a dangerous phenomenon threatening life",
+        heroIntro: "Air pollution is one of the greatest environmental challenges of the modern era — affecting human health, biodiversity, and climate.",
+        homeLink: "Home",
+        authorsLink: "Authors",
+        settingsBtn: "Settings ⚙️",
+        ctaStart: "Start Reading",
+        agreeText: "☑ I have read the terms and conditions",
+        continueBtn: "Continue",
+        skipBtn: "Skip"
+      },
+      ar: {
+        siteTitle: "التلوث البيئي، ظاهرة خطرة...",
+        siteSub: "بحث توعوي كامل ومتعدد المصادر",
+        heroTitle: "التلوث البيئي، ظاهرة خطرة تهدد حياتنا",
+        heroIntro: "التلوث الجوي واحد من أكبر التحديات البيئية في العصر الحديث — يؤثر على صحة الإنسان، التنوع الحيوي، والمناخ.",
+        homeLink: "القائمة الرئيسية",
+        authorsLink: "المؤلفون",
+        settingsBtn: "الإعدادات",
+        ctaStart: "طباعة البحث",
+        agreeText: "لقد قرأت الشروط والأحكام",
+        continueBtn: "مُواصلة",
+      }
+    };
+
+    function applyLanguage(lang){
+      const tr = translations[lang] || translations['ar'];
+      document.getElementById('siteTitle').textContent = tr.siteTitle;
+      document.getElementById('siteSub').textContent = tr.siteSub;
+      document.getElementById('heroTitle').textContent = tr.heroTitle;
+      document.getElementById('heroIntro').textContent = tr.heroIntro;
+      document.querySelector('[data-key="homeLink"]').textContent = tr.homeLink;
+      document.querySelector('[data-key="authorsLink"]').textContent = tr.authorsLink;
+      settingsBtn.textContent = tr.settingsBtn;
+      ctaStart.textContent = tr.ctaStart;
+      // تعديل نص الشروط داخل المودال
+      document.querySelector('.checkbox span').textContent = tr.agreeText;
+      continueBtn.textContent = tr.continueBtn;
+      skipBtn.textContent = tr.skipBtn;
+      // اتجاه الصفحة
+      if(lang === 'en'){
+        document.documentElement.lang = 'en';
+        document.documentElement.dir = 'ltr';
+      } else {
+        document.documentElement.lang = 'ar';
+        document.documentElement.dir = 'rtl';
+      }
+    }
+
+    langSelect.addEventListener('change', (e) => {
+      applyLanguage(e.target.value);
+    });
+
+    // default language arabic
+    applyLanguage('ar');
+
+    // ---------- الثيم ----------
+    let dark = false;
+    function setTheme(isDark){
+      dark = isDark;
+      if(dark){
+        document.documentElement.setAttribute('data-theme','dark');
+        themeToggle.classList.add('on');
+      } else {
+        document.documentElement.removeAttribute('data-theme');
+        themeToggle.classList.remove('on');
+      }
+    }
+    // بدأ الوضع الافتراضي (فاتح)
+    setTheme(false);
+
+    themeToggle.addEventListener('click', () => {
+      setTheme(!dark);
+    });
+
+    // ربط رابط الكاتِبون للتمرير
+    document.querySelectorAll('.nav-item').forEach(a => {
+      a.addEventListener('click', (e) => {
+        if(a.getAttribute('href') && a.getAttribute('href').startsWith('#')){
+          e.preventDefault();
+          const id = a.getAttribute('href').slice(1);
+          const el = document.getElementById(id);
+          if(el){
+            window.scrollTo({ top: el.offsetTop - 80, behavior:'smooth' });
+          }
+        }
+      });
+    });
+
+    // منع التمرير للخلف أثناء المودال (تجربة أفضل)
+    // يمكنك توسيع هذه الجزئية لتحسين الوصول وقابليّة الاستخدام.
+    document.addEventListener('keydown', (e) => {
+      if((welcomeOverlay.style.display !== 'none' && welcomeOverlay.style.display !== '') ||
+         (aboutOverlay.style.display !== 'none' && aboutOverlay.style.display !== '')){
+        // حجب esc من إغلاق تلقائي لمنع إغلاق قبل قراءة الشروط
+        if(e.key === 'Escape') e.preventDefault();
+      }
+    });
+
+    // عند تحميل الصفحة: افصل المودالات حسب منطق التطبيق
+    window.addEventListener('load', () => {
+      // welcomeOverlay يظهر تلقائياً حسب الكود أعلاه (display:flex)
+      // لكن إن رغبت أن يُعرض فقط عند فتح لأول مرة يمكن تخزين حالة في localStorage
+    });
+  </script>
+  
+  <script>
+  // عند تحميل الصفحة: إذا المستخدم جديد أو عمل refresh، المودال يظهر
+  window.addEventListener('load', () => {
+    if (!sessionStorage.getItem('overlayDismissed')) {
+      document.getElementById('welcomeOverlay').style.display = 'flex';
+      document.getElementById('aboutOverlay').style.display = 'none';
+      document.getElementById('mainContent').style.display = 'none';
+    }
+  });
+
+  // عند الضغط على زر الطباعة
+  document.getElementById('ctaStart').addEventListener('click', () => {
+    document.getElementById('welcomeOverlay').style.display = 'none';
+    document.getElementById('aboutOverlay').style.display = 'none';
+    document.getElementById('mainContent').style.display = 'block';
+
+    // حفظ الحالة في sessionStorage (باش ما يعاودش يرجع المودال)
+    sessionStorage.setItem('overlayDismissed', 'true');
+
+  });
+
+  // بعد الطباعة (أو إلغاء الطباعة): ما نرجعش نعرض المودال
+  window.addEventListener('afterprint', () => {
+    document.getElementById('welcomeOverlay').style.display = 'none';
+    document.getElementById('aboutOverlay').style.display = 'none';
+    document.getElementById('mainContent').style.display = 'block';
+  });
+</script>
+
+</body>
+</html>
